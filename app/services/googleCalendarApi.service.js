@@ -104,7 +104,7 @@ class GoogleCalendarApiService {
 					const events = res.data.items;
 					if (events.length) {
 						const timeRangeEvents = events.map(
-							(event, i) => `🔲 ${moment(event.start.dateTime || event.start.date).format('HH:mm')} | ${event.summary}`
+							(event, i) => `⬜ ${moment(event.start.dateTime || event.start.date).format('HH:mm')} | ${event.summary}`
 						);
 						return resolve(timeRangeEvents);
 					} else {
