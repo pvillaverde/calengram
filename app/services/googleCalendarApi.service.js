@@ -89,7 +89,7 @@ class GoogleCalendarApiService {
 			const calendar = google.calendar({ version: 'v3', auth });
 			calendar.events.list(
 				{
-					calendarId: 'galegotwitch@gmail.com',
+					calendarId: config.calendarId,
 					timeMin: moment(day).startOf('day').toISOString(),
 					timeMax: moment(day).endOf('day').toISOString(),
 					//maxResults: 10,

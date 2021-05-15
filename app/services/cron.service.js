@@ -7,10 +7,10 @@ const GoogleSheetsApiService = require('./googleSheetsApi.service');
 class CronService {
 	static init() {
 		this.channels = [];
-		this.fetchEvents();
 		cron.schedule(config.cron.publishTime, () => this.fetchEvents());
 	}
 	static async getChannels() {
+		if (!config.google_spreadsheet) return [];
 		try {
 			return await GoogleSheetsApiService.fetchData(config.google_spreadsheet);
 		} catch (error) {
@@ -20,7 +20,7 @@ class CronService {
 	}
 	static async fetchEvents() {
 		this.channels = await this.getChannels();
-		const day = '2021-05-17'; //new Date();
+		const day = new Date(); // '2021-05-17'; //
 		const events = await GoogleCalendarApiService.fetchEvents(day);
 		console.log(events);
 		console.log(new Date().toISOString(), '[CronService]', 'Enviado calendario');
