@@ -71,10 +71,8 @@ class InstagramApiService {
 			{ canvasImage: canvasDateImage, layer: 1, repeat: 'fit' },
 		];
 		// Determinar o espazo por evento e engadir as capas de eventos
-		const availableSpace = 1920 - 560 - 100;
 		const eventSpace = 140;
 		const totalSpace = 140 * events.length;
-		/* const eventSpace = availableSpace / events.length; */
 		for (let index = 0; index < events.length; index++) {
 			const element = events[index]; /*.substring(0, 50)  + (events[index].length > 50 ? '...' : '') */
 			const buffer = new UltimateTextToImage(element, {
@@ -109,7 +107,6 @@ class InstagramApiService {
 		})
 			.render()
 			.toBuffer('image/jpeg', { quality: 80, progressive: true });
-		//.toFile('app/data/output.jpg');
 	}
 
 	// Busca as canles que poden estar mencionadas no calendario para etiquetar os usuarios de instagram
@@ -119,11 +116,10 @@ class InstagramApiService {
 
 	static buildMentions(channels = []) {
 		const userIds = channels.map((c) => c.igid);
-		const stickerConfig = new StickerBuilder().add(
-			StickerBuilder.mention({
-				userId: '45845256267', // TWITCH EN GALEGO
-			}).center()
-		);
+		const stickerConfig = new StickerBuilder();
+		if (config.mentionAlways) {
+			stickerConfig.add(StickerBuilder.mention({ userId: config.instagram.id }).center());
+		}
 		for (const userId of userIds) {
 			stickerConfig.add(StickerBuilder.mention({ userId }).center());
 		}
