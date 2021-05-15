@@ -1,0 +1,27 @@
+{
+	"name": "calengram",
+	"version": "0.0.1",
+	"description": "Google Calendar to Instagram story",
+	"main": "app/index.js",
+	"scripts": {
+		"start": "node app/index.js",
+		"debug": "node --inspect app/index.js",
+		"debug-brk": "node --inspect --inspect-brk app/index.js"
+	},
+	"keywords": [
+		"google",
+		"calendar",
+		"instagram",
+		"story"
+	],
+	"author": "Pablo Villaverde Castro",
+	"license": "GPLv3",
+	"dependencies": {
+		"axios": "^0.21.1",
+		"googleapis": "^67.1.1",
+		"instagram-private-api": "^1.44.1",
+		"moment": "^2.27.0",
+		"node-cron": "^3.0.0",
+		"ultimate-text-to-image": "^1.0.0"
+	}
+}

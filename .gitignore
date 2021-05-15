@@ -1,0 +1,6 @@
+/node_modules/
+/app/security/
+/app/config.js
+token.json
+/exemplos/
+/*.log
