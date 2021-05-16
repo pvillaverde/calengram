@@ -1,19 +1,22 @@
 FROM node:15-alpine
 MAINTAINER Pablo Villaverde <https://github.com/pvillaverde>
-## Install App dependencies
-## Using wildcard to copy both package.json and package-lock.json
-## This forces Docker not to use cache when we change our dependencies
-ADD package*.json /tmp/
+## Instalar fontes para soportar emojis
 RUN apk add --update  --repository http://dl-3.alpinelinux.org/alpine/edge/testing libmount ttf-dejavu ttf-droid ttf-freefont ttf-liberation ttf-ubuntu-font-family fontconfig
+## Instalar librerías gráficas para a edición das imaxes (node-canvas, node-gpy)
 RUN apk add --no-cache libc6-compat \
     jpeg-dev \
     cairo-dev \
     giflib-dev \
     pango-dev \
-    tzdata
+## Instalación de tzdata e establecer a hora local a Madrid
+    tzdata 
 ENV TZ Europe/Madrid
 RUN ln -snf /usr/share/zoneinfo/$TZ /etc/localtime && echo $TZ > /etc/timezone
 RUN ln -s /lib/libc.musl-x86_64.so.1 /lib/ld-linux-x86-64.so.2
+## Install App dependencies
+## Using wildcard to copy both package.json and package-lock.json
+## This forces Docker not to use cache when we change our dependencies
+ADD package*.json /tmp/
 RUN cd /tmp && apk add --no-cache --virtual .build-deps \
     make \
     g++ \

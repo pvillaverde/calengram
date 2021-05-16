@@ -8,7 +8,7 @@ const config = require('./config');
 async function bootstrapApp() {
 	console.log(' ');
 	console.log(' ----------------------------------');
-	console.log('|     Twitch Data Exporter         |');
+	console.log('|            Calengram             |');
 	console.log(`|  Pablo Villaverde Castro © 2021  |`);
 	console.log('|       clankirfed@gmail.com       |');
 	console.log(' ----------------------------------');
