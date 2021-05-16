@@ -9,7 +9,10 @@ RUN apk add --no-cache libc6-compat \
     jpeg-dev \
     cairo-dev \
     giflib-dev \
-    pango-dev
+    pango-dev \
+    tzdata
+ENV TZ Europe/Madrid
+RUN ln -snf /usr/share/zoneinfo/$TZ /etc/localtime && echo $TZ > /etc/timezone
 RUN ln -s /lib/libc.musl-x86_64.so.1 /lib/ld-linux-x86-64.so.2
 RUN cd /tmp && apk add --no-cache --virtual .build-deps \
     make \

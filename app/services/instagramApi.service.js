@@ -25,8 +25,8 @@ class InstagramApiService {
 		process.nextTick(async () => await this.ig.simulate.postLoginFlow());
 	}
 
-	static async postStory(day, events, channels) {
-		const file = await this.buildStory(day, events);
+	static async postStory(day, events, channels, remainingEvents) {
+		const file = await this.buildStory(day, events, remainingEvents);
 		const filterChannels = this.filterEventChannels(events, channels);
 		const stickerConfig = this.buildMentions(events, filterChannels);
 		await this.login();
@@ -47,7 +47,7 @@ class InstagramApiService {
 		}
 	}
 
-	static async buildStory(day, events) {
+	static async buildStory(day, events, remainingEvents) {
 		const buffer = await fs.readFile('app/data/base_calendar.png');
 		const canvasBaseImage = await getCanvasImage({ buffer });
 		// Texto Data
@@ -74,15 +74,15 @@ class InstagramApiService {
 		const eventSpace = 140;
 		const totalSpace = 140 * events.length;
 		for (let index = 0; index < events.length; index++) {
-			const element = events[index]; /*.substring(0, 50)  + (events[index].length > 50 ? '...' : '') */
+			const element = events[index].substring(0, 100) + (events[index].length > 100 ? '...' : '');
 			const buffer = new UltimateTextToImage(element, {
 				//	align: 'center',
 				width: 1080,
 				fontSize: 36,
 				height: 1920,
 				marginTop: 560 + eventSpace * index,
-				marginLeft: 135,
-				marginRight: 135,
+				marginLeft: 180,
+				marginRight: 180,
 				lineHeightMultiplier: 1.5,
 				fontWeight: 'bold',
 				fontFamily: 'Catamaran Medium',
@@ -94,7 +94,8 @@ class InstagramApiService {
 			images.push(eventLayer);
 		}
 		// Engadir o último texto de "A quén verás hoxe"
-		return new UltimateTextToImage('A quen verás hoxe?', {
+		const finalText = remainingEvents ? '' : 'A quen verás hoxe?';
+		return new UltimateTextToImage(finalText, {
 			width: 1080,
 			height: 1920,
 			marginTop: 560 + totalSpace,
@@ -107,6 +108,7 @@ class InstagramApiService {
 		})
 			.render()
 			.toBuffer('image/jpeg', { quality: 80, progressive: true });
+		//.toFile('app/data/output.jpg');
 	}
 
 	// Busca as canles que poden estar mencionadas no calendario para etiquetar os usuarios de instagram

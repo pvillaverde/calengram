@@ -28,7 +28,7 @@ class CronService {
 			const splitEvents = events;
 			while (splitEvents.length) {
 				const storyEvents = splitEvents.splice(0, config.maxStoryEvents);
-				await InstagramApiService.postStory(day, storyEvents, this.channels);
+				await InstagramApiService.postStory(day, storyEvents, this.channels, splitEvents.length);
 			}
 		} else {
 			await InstagramApiService.postStory(day, events, this.channels);
