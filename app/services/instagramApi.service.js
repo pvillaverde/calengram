@@ -19,10 +19,16 @@ class InstagramApiService {
 	}
 
 	static async login() {
-		this.ig.state.generateDevice(config.instagram.username);
-		await this.ig.simulate.preLoginFlow();
-		this.loggedInUser = await this.ig.account.login(config.instagram.username, config.instagram.password);
-		process.nextTick(async () => await this.ig.simulate.postLoginFlow());
+		try {
+			this.ig.state.generateDevice(config.instagram.username);
+			await this.ig.simulate.preLoginFlow();
+			this.loggedInUser = await this.ig.account.login(config.instagram.username, config.instagram.password);
+			process.nextTick(async () => await this.ig.simulate.postLoginFlow());
+			return true;
+		} catch (error) {
+			this.handleApiError(err, 'Login Error');
+			return false;
+		}
 	}
 
 	static async postStory(day, events, channels, remainingEvents) {
@@ -41,7 +47,7 @@ class InstagramApiService {
 				},
 				stickerConfig,
 			});
-			console.log('[InstagramApiService]', 'Story posted succesfully - Channels', filterChannels);
+			console.log('[InstagramApiService]', 'Story posted succesfully - Channels', filterChannels.map((c) => c.iguser).join(','));
 		} catch (err) {
 			this.handleApiError(err, 'Error while trying to post story');
 		}

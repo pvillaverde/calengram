@@ -22,8 +22,7 @@ class CronService {
 		this.channels = await this.getChannels();
 		const day = new Date(); // '2021-05-17'; //
 		const events = await GoogleCalendarApiService.fetchEvents(day);
-		console.log(events);
-		console.log(new Date().toISOString(), '[CronService]', 'Enviado calendario');
+		console.log(new Date().toISOString(), '[CronService]', events);
 		if (events.length > config.maxStoryEvents) {
 			const splitEvents = events;
 			while (splitEvents.length) {
