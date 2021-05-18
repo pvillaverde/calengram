@@ -1,5 +1,5 @@
 FROM node:15-alpine
-MAINTAINER Pablo Villaverde <https://github.com/pvillaverde>
+LABEL maintainer="Pablo Villaverde <https://github.com/pvillaverde>"
 ## Instalar fontes para soportar emojis
 RUN apk add --update  --repository http://dl-3.alpinelinux.org/alpine/edge/testing libmount ttf-dejavu ttf-droid ttf-freefont ttf-liberation ttf-ubuntu-font-family fontconfig
 ## Instalar librerías gráficas para a edición das imaxes (node-canvas, node-gpy)

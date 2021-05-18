@@ -34,7 +34,7 @@ class InstagramApiService {
 	static async postStory(day, events, channels, remainingEvents) {
 		const file = await this.buildStory(day, events, remainingEvents);
 		const filterChannels = this.filterEventChannels(events, channels);
-		const stickerConfig = this.buildMentions(events, filterChannels);
+		const stickerConfig = this.buildMentions(filterChannels);
 		await this.login();
 		try {
 			await this.ig.publish.story({
