@@ -71,6 +71,7 @@ Project is build on node and uses many npm packages, You need to set up:
 5. Setup other settings: Max events per story, if user should be mentioned and credentials for the instagram user.
    ```JS
 	maxStoryEvents: 9, // Max events per story image.
+	maxEventLength: 64, // Max characters per event
 	mentionAlways: false, // Wheter or not to mention OUR user on every story.
 	instagram: {
 		id: '', // Instagram User ID

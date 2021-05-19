@@ -80,7 +80,7 @@ class InstagramApiService {
 		const eventSpace = 140;
 		const totalSpace = 140 * events.length;
 		for (let index = 0; index < events.length; index++) {
-			const element = events[index].substring(0, 100) + (events[index].length > 100 ? '...' : '');
+			const element = events[index].substring(0, config.maxEventLength) + (events[index].length > config.maxEventLength ? '...' : '');
 			const buffer = new UltimateTextToImage(element, {
 				//	align: 'center',
 				width: 1080,

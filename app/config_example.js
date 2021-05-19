@@ -5,6 +5,7 @@ module.exports = {
 		publishTime: '* * * * *', // When will the calendar be retrieved and posted to instagram
 	},
 	maxStoryEvents: 9, // Max events per story image.
+	maxEventLength: 64, // Max characters per event
 	mentionAlways: false, // Wheter or not to mention OUR user on every story.
 	instagram: {
 		id: '', // Instagram User ID
