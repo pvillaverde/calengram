@@ -26,7 +26,7 @@ class InstagramApiService {
 			process.nextTick(async () => await this.ig.simulate.postLoginFlow());
 			return true;
 		} catch (error) {
-			this.handleApiError(err, 'Login Error');
+			this.handleApiError(error, 'Login Error');
 			return false;
 		}
 	}
