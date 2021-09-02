@@ -8,6 +8,9 @@ class CronService {
 	static init() {
 		this.channels = [];
 		cron.schedule(config.cron.publishTime, () => this.fetchEvents());
+		if(process.env.CALENGRAM_POST_ON_STARTUP && process.env.CALENGRAM_POST_ON_STARTUP.toLowerCase() === 'true') {
+			this.fetchEvents();
+		}
 	}
 	static async getChannels() {
 		if (!config.google_spreadsheet) return [];

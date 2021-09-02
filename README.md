@@ -100,6 +100,7 @@ As you have seen previously, you can choose how the app learns which channels to
 		headers: 'name,iguser,igid', // Column Headers (Use them for specifying channel name, instagram @user and Instagram ID)
 	},
 ```
+3. If for any reason whatsoever you need to post a story on startup, you can set the environment variable `CALENGRAM_POST_ON_STARTUP=true` in your system or docker image. 
 
 ### Customizing refresh intervals
 Lastly, you can choose when to retrieve each data on the `cron` option of `config.js`, by default it is setup like this:
