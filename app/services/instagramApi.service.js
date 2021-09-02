@@ -12,7 +12,7 @@ class InstagramApiService {
 
 	static handleApiError(error, message) {
 		if (message) {
-			console.error('[InstagramApiService]', 'API request failed with error:', error, message);
+			console.error('[InstagramApiService]', 'API request failed with error:', message, error);
 		} else {
 			console.error('[InstagramApiService]', 'API request failed with error:', error);
 		}
@@ -21,7 +21,9 @@ class InstagramApiService {
 	static async login() {
 		try {
 			this.ig.state.generateDevice(config.instagram.username);
-			await this.ig.simulate.preLoginFlow();
+			try {
+				await this.ig.simulate.preLoginFlow();
+			} catch (error) {}
 			this.loggedInUser = await this.ig.account.login(config.instagram.username, config.instagram.password);
 			process.nextTick(async () => await this.ig.simulate.postLoginFlow());
 			return true;
