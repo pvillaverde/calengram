@@ -19,6 +19,8 @@ const fs = require('fs');
 const readline = require('readline');
 const { google } = require('googleapis');
 const config = require('../config.js');
+const moment = require('moment');
+const FileDatabaseService = require('./fileDatabase.service.js');
 
 /**
  * Google Sheets Api Helper.
@@ -40,6 +42,7 @@ class GoogleSheetsApiService {
 		} else {
 			console.error('[GoogleSheetsAPIService]', 'API request failed with error:', error);
 		}
+		new FileDatabaseService('live-messages').put('last-error', moment());
 	}
 
 	/**

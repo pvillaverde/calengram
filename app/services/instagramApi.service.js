@@ -21,6 +21,7 @@ const { IgApiClient } = require('instagram-private-api');
 const { StickerBuilder } = require('instagram-private-api/dist/sticker-builder');
 const { getCanvasImage, HorizontalImage, registerFont, UltimateTextToImage, VerticalImage } = require('ultimate-text-to-image');
 const moment = require('moment');
+const FileDatabaseService = require('./fileDatabase.service.js');
 
 class InstagramApiService {
 	static init() {
@@ -33,6 +34,7 @@ class InstagramApiService {
 		} else {
 			console.error('[InstagramApiService]', 'API request failed with error:', error);
 		}
+		new FileDatabaseService('live-messages').put('last-error', moment());
 	}
 
 	static async login() {

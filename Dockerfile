@@ -28,4 +28,7 @@ ADD ./app/fonts/* /usr/share/fonts/
 WORKDIR /opt/calengram
 ADD . /opt/calengram
 
+HEALTHCHECK --interval=10s --timeout=3s --start-period=30s \
+      CMD node app/healthcheck.js
+
 CMD [ "node", "app/index.js" ]
