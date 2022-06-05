@@ -4,3 +4,5 @@
 token.json
 /exemplos/
 /*.log
+/app/data/discord/
+/app/data/live-messages/

@@ -17,16 +17,24 @@
 */
 const config = require('../config');
 const cron = require('node-cron'); // https://www.digitalocean.com/community/tutorials/nodejs-cron-jobs-by-example
+const moment = require('moment');
 const GoogleCalendarApiService = require('./googleCalendarApi.service');
 const InstagramApiService = require('./instagramApi.service');
 const GoogleSheetsApiService = require('./googleSheetsApi.service');
+const DiscordService = require('./discord.service');
 
 class CronService {
 	static init() {
 		this.channels = [];
 		cron.schedule(config.cron.publishTime, () => this.fetchEvents());
-		if(process.env.CALENGRAM_POST_ON_STARTUP && process.env.CALENGRAM_POST_ON_STARTUP.toLowerCase() === 'true') {
+		if (config.discord && config.discord.channelId) {
+			cron.schedule(config.cron.discordCalendar, () => this.fetchWeekEvents());
+		}
+		if (process.env.CALENGRAM_POST_ON_STARTUP && process.env.CALENGRAM_POST_ON_STARTUP.toLowerCase() === 'true') {
 			this.fetchEvents();
+			if (config.discord && config.discord.channelId) {
+				cron.schedule(config.cron.discordCalendar, () => this.fetchWeekEvents());
+			}
 		}
 	}
 	static async getChannels() {
@@ -52,6 +60,18 @@ class CronService {
 		} else {
 			await InstagramApiService.postStory(day, events, this.channels);
 		}
+	}
+	static async fetchWeekEvents() {
+		const fields = [];
+		let day = moment();
+		while (moment(day).diff(moment(), 'days') < config.discord.days) {
+			fields.push({
+				title: moment(day).locale(config.momentLocale).format('dddd - D [de] MMMM'),
+				events: await GoogleCalendarApiService.fetchEvents(day.toDate()),
+			});
+			day.add(1, 'day');
+		}
+		DiscordService.updateCalendar(fields);
 	}
 }
 

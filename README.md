@@ -78,6 +78,11 @@ Project is build on node and uses many npm packages, You need to set up:
 		username: '', // Instagram User Email
 		password: '', // Instagram User Password
 	},
+	discord: {
+		channelId: null, // Discord channel ID  (string. If null discord wont be used)
+		bot_token: null, // Discord bot Token (string. If null discord wont be used)
+		days: 4,
+	},
 	```
 6. Start the app by runing `npm start` or `node app/index.js` and follow the steps for google Api auth.
 7. If you want to launch a docker, once you have all setup and ready, build the image and run it with:

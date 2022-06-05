@@ -79,7 +79,7 @@ class InstagramApiService {
 		const canvasBaseImage = await getCanvasImage({ buffer });
 		// Texto Data
 		const capitalizeFirstChar = (str) => str.charAt(0).toUpperCase() + str.substring(1);
-		const dateString = capitalizeFirstChar(moment(day).locale('gl').format('dddd DD/MM/yyyy'));
+		const dateString = capitalizeFirstChar(moment(day).locale(config.momentLocale).format('dddd DD/MM/yyyy'));
 		const canvasDateImage = await getCanvasImage({
 			buffer: new UltimateTextToImage(dateString, {
 				align: 'center',

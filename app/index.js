@@ -21,6 +21,7 @@ const InstagramApiService = require('./services/instagramApi.service');
 const CronService = require('./services/cron.service');
 const fs = require('fs');
 const config = require('./config');
+const DiscordService = require('./services/discord.service');
 
 async function bootstrapApp() {
 	console.log(' ');
@@ -41,6 +42,9 @@ async function bootstrapApp() {
 		} catch (error) {}
 		GoogleSheetsApiService.authorize();
 	} else {
+		if (config.discord && config.discord.channelId) {
+			DiscordService.init();
+		}
 		InstagramApiService.init();
 		CronService.init();
 	}
