@@ -20,7 +20,7 @@
 		"axios": "^0.21.1",
 		"discord.js": "^12.5.3",
 		"googleapis": "^67.1.1",
-		"instagram-private-api": "^1.44.1",
+		"instagram-private-api": "^1.45.3",
 		"moment": "^2.27.0",
 		"node-cron": "^3.0.0",
 		"ultimate-text-to-image": "^1.0.0"
