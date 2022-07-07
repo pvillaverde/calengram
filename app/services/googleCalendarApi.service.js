@@ -128,6 +128,7 @@ class GoogleCalendarApiService {
 						return resolve(timeRangeEvents);
 					} else {
 						console.log('No upcoming events found.');
+						return resolve(["Non hai eventos este día"])
 					}
 				}
 			);
