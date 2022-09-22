@@ -13,6 +13,7 @@ module.exports = {
 		id: '', // Instagram User ID
 		username: '', // Instagram User Email
 		password: '', // Instagram User Password
+		publishNoEvents: false, // Set to true if you want to publish story even if there aren't events 
 	},
 	discord: {
 		channelId: null, // Discord channel ID  (string. If null discord wont be used)
