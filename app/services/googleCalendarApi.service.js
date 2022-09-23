@@ -128,7 +128,7 @@ class GoogleCalendarApiService {
 						return resolve(timeRangeEvents);
 					} else {
 						console.log('No upcoming events found.');
-						return resolve(["  -"])
+						return resolve([])
 					}
 				}
 			);
