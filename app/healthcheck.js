@@ -5,7 +5,7 @@ const lastError = new FileDatabaseService('live-messages').get('last-error') || 
 const now = moment();
 if (lastError) {
 	console.log('Last error was at', moment(lastError).toISOString());
-	if (now.diff(moment(lastError), 'minutes') <= 5) {
+	if (now.diff(moment(lastError), 'minutes') <= 120) {
 		process.exit(1);
 	} else {
 		process.exit(0);
